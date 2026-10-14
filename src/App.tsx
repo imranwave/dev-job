@@ -1,15 +1,15 @@
-import FilterJobs from "./components/FilterJobs"
-import NavBar from "./components/NavBar"
+import { Suspense } from "react";
+import MainConmponents from "./components/MainConmponents";
+import type { Tjob } from "./job";
 
-
+const jobsPromise:Promise<Tjob[]> =fetch("/jobs.json").then(res=>res.json())
 function App() {
-
-
   return (
-    <div>
-      <NavBar/>
-      <FilterJobs/>  
-    </div>
+    <>
+      <Suspense fallback={<h1>loading.....</h1>}>
+        <MainConmponents jobsPromise={jobsPromise}></MainConmponents>
+      </Suspense>
+    </>
   )
 }
 
